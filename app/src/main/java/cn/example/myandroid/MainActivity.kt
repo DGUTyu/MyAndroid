@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import cn.example.common.CommonMainActivity
+import cn.example.designpattern.DesignPatternMainActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TextView>(R.id.tvHello).setOnClickListener {
+        findViewById<TextView>(R.id.tvToCommon).setOnClickListener {
             startActivity(Intent(this, CommonMainActivity::class.java))
+        }
+
+        findViewById<TextView>(R.id.tvToDesignPattern).setOnClickListener {
+            startActivity(Intent(this, DesignPatternMainActivity::class.java))
         }
     }
 }
