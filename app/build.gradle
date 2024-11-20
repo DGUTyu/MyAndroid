@@ -123,18 +123,5 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
-
-    //
-    implementation rootProject.ext.dependencies["appcompat"]
-    //
-    implementation rootProject.ext.dependencies["constraintlayout"]
-    implementation rootProject.ext.dependencies["recyclerview"]
-    implementation rootProject.ext.dependencies["cardview"]
-    implementation rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
-    implementation rootProject.ext.dependencies["kotlinx-coroutines-core"]
-    implementation rootProject.ext.dependencies["kotlinx-coroutines-android"]
-    implementation rootProject.ext.dependencies["lifecycle-runtime-ktx"]
-    implementation rootProject.ext.dependencies["core-ktx"]
-    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    implementation rootProject.ext.dependencies["gson"]
+    implementation project(path: ':common')
 }
