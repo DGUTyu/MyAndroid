@@ -45,4 +45,5 @@ dependencies {
     implementation rootProject.ext.dependencies["retrofit2:adapter-rxjava"]
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
 }
