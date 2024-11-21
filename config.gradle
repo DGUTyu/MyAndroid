@@ -40,6 +40,7 @@ ext {
             "rxandroid"                    : 'io.reactivex.rxjava2:rxandroid:2.1.0',
             "okhttp3"                      : 'com.squareup.okhttp3:okhttp:3.14.9',
             "okhttp3:logging-interceptor"  : 'com.squareup.okhttp3:logging-interceptor:3.14.9',
+            "PersistentCookieJar"          : 'com.github.franmontiel:PersistentCookieJar:v1.0.1',
     ]
 
     //依赖 配置 定义一个数组

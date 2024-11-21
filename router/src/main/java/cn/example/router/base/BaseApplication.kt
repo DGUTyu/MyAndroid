@@ -2,6 +2,7 @@ package cn.example.router.base
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 
 /**
@@ -48,5 +49,12 @@ open class BaseApplication : Application() {
         val instance: BaseApplication
             get() = sInstance
                     ?: throw NullPointerException("Please inherit BaseApplication or call setApplication.")
+
+        /**
+         * 获取 Application 的 Context
+         */
+        fun getContext(): Context {
+            return instance.applicationContext
+        }
     }
 }

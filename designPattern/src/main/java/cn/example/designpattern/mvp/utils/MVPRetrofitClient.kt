@@ -2,6 +2,10 @@ package cn.example.designpattern.mvp.utils
 
 import cn.example.designpattern.BuildConfig
 import cn.example.designpattern.mvp.model.MVPApiService
+import cn.example.router.base.BaseApplication
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,11 +38,22 @@ object MVPRetrofitClient {
         //level = HttpLoggingInterceptor.Level.NONE
     }
 
+    // 创建 CookieJar
+    private val cookieJar = PersistentCookieJar(
+            // 正确使用 SetCookieCache() 来缓存 cookies
+            SetCookieCache(),
+            // 将 cookies 持久化存储到 SharedPreferences 中，以便跨会话使用。
+            SharedPrefsCookiePersistor(BaseApplication.getContext())
+    )
+
     // 创建 OkHttpClient，并在 Debug 模式下添加日志拦截器
     private val okHttpClient = OkHttpClient.Builder().apply {
         // 设置超时时间
         connectTimeout(30, TimeUnit.SECONDS)
         readTimeout(30, TimeUnit.SECONDS)
+
+        // 设置 CookieJar
+        cookieJar(cookieJar)
 
         // 仅在 Debug 模式下添加日志拦截器
         if (BuildConfig.DEBUG) {
