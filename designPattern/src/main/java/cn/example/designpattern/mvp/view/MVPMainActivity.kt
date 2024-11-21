@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.example.designpattern.R
 import cn.example.designpattern.mvp.adapter.PostsAdapter
+import cn.example.designpattern.mvp.http.RequestParam
 import cn.example.designpattern.mvp.model.MVPDataModel
 import cn.example.designpattern.mvp.presenter.MVPMainPresenter
 
@@ -47,6 +48,22 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
 
         findViewById<Button>(R.id.mvpBtnUser).setOnClickListener {
             presenter.fetchPostsByUser(1) // 获取用户 ID 为 1 的文章
+            //presenter.sendPostRequest(getParam())
+        }
+    }
+
+    private fun getParam(): RequestParam {
+        // 准备测试数据
+        val dataMap = mapOf(
+                "title" to "foo",
+                "body" to "bar",
+                "userId" to "1"
+        )
+
+        return RequestParam().apply {
+            put(dataMap)
+//            addInputData("number", "123456")
+//            addInputData(dataMap)
         }
     }
 

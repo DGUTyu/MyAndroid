@@ -1,5 +1,7 @@
 package cn.example.designpattern.mvp.presenter
 
+import android.util.Log
+import cn.example.designpattern.mvp.http.RequestParam
 import cn.example.designpattern.mvp.model.MVPDataModel
 import cn.example.designpattern.mvp.utils.MVPRetrofitClient
 import cn.example.designpattern.mvp.view.MVPMainView
@@ -69,6 +71,27 @@ class MVPMainPresenter(private val mainView: MVPMainView) {
                 )
         disposables.add(disposable)
     }
+
+    fun sendPostRequest(params: RequestParam) {
+        Log.d("PostRequest", "params: $params")
+        mainView.showLoading()
+        val disposable = MVPRetrofitClient.apiService.sendPostRequest(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { post: MVPDataModel ->
+                            mainView.hideLoading()
+                            mainView.onGetSinglePostSuccess(post)
+                            Log.d("PostRequest", "Response: $post")
+                        },
+                        { error ->
+                            mainView.hideLoading()
+                            Log.e("PostRequest", "Error: ${error.message}")
+                        }
+                )
+        disposables.add(disposable)
+    }
+
 
     // 清理订阅
     fun clear() {

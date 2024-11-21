@@ -1,9 +1,9 @@
 package cn.example.designpattern.mvp.model
 
+import cn.example.designpattern.mvp.http.RequestParam
+import com.google.gson.JsonObject
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * 1.定义API接口
@@ -23,4 +23,8 @@ interface MVPApiService {
 
     @GET("posts")
     fun getPostsByUser(@Query("userId") userId: Int): Observable<List<MVPDataModel>>
+
+    @POST("posts")
+    fun sendPostRequest(@Body requestParam: RequestParam): Observable<MVPDataModel>
+
 }
