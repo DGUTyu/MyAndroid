@@ -1,10 +1,10 @@
-package cn.example.designpattern.service;
+package cn.example.designpattern.serviceImpl;
 
 
 import com.google.auto.service.AutoService;
 
-import cn.example.common.service.IDesignPattern;
-import cn.example.common.utils.ActivityLaunchUtils;
+import cn.example.router.service.IDesignPattern;
+import cn.example.router.utils.ActivityLaunchUtils;
 import cn.example.designpattern.DesignPatternMainActivity;
 
 /**

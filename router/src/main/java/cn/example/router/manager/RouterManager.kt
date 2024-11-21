@@ -1,8 +1,8 @@
-package cn.example.common.manager
+package cn.example.router.manager
 
-import cn.example.common.service.IDesignPattern
-import cn.example.common.service.IDesignPattern2
-import cn.example.common.utils.ServiceLoaderUtils
+import cn.example.router.service.ICommon
+import cn.example.router.service.IDesignPattern
+import cn.example.router.utils.ServiceLoaderUtils
 
 class RouterManager {
 
@@ -31,16 +31,16 @@ class RouterManager {
         getDesignPatternService()?.goDesignPatternPage()
     }
 
-    private var iDesignPattern2: IDesignPattern2? = null
+    private var iCommon: ICommon? = null
 
-    private fun getDesignPatternService2(): IDesignPattern2? {
-        if (iDesignPattern2 == null) {
-            iDesignPattern2 = ServiceLoaderUtils.load(IDesignPattern2::class.java)
+    private fun getCommonService(): ICommon? {
+        if (iCommon == null) {
+            iCommon = ServiceLoaderUtils.load(ICommon::class.java)
         }
-        return iDesignPattern2
+        return iCommon
     }
 
-    fun goDesignPatternPage2() {
-        getDesignPatternService2()?.goDesignPatternPage2()
+    fun goCommonPage() {
+        getCommonService()?.goCommonPage()
     }
 }

@@ -24,26 +24,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation project(path: ':router')
+    api rootProject.ext.dependencies["appcompat"]
+    api rootProject.ext.dependencies["constraintlayout"]
+    api rootProject.ext.dependencies["recyclerview"]
 
-    api rootProject.ext.dependencies["cardview"]
-    api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
-    api rootProject.ext.dependencies["kotlinx-coroutines-core"]
-    api rootProject.ext.dependencies["kotlinx-coroutines-android"]
-    api rootProject.ext.dependencies["lifecycle-runtime-ktx"]
-    api rootProject.ext.dependencies["core-ktx"]
-    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    api rootProject.ext.dependencies["gson"]
-    // Java 项目
-    annotationProcessor rootProject.ext.dependencies["googleAutoServiceDependency"]
-    // Kotlin 项目
-    kapt rootProject.ext.dependencies["googleAutoServiceDependency"]
+    api rootProject.ext.dependencies["googleAutoServiceDependency"]
 }

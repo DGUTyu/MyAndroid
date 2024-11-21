@@ -51,3 +51,26 @@ app
 
     模块难以维护：
         新增或修改模块功能时，需要同时调整两个模块的依赖，增加了开发复杂度。
+
+3. 改进方案
+方案 1：拆分出一个独立的 API 模块
+
+将接口和基础工具类（如 ServiceLoaderUtils）抽取到一个新的模块中（比如 router 模块），消除 common 和 designPattern 之间的循环依赖。
+依赖结构调整后：
+router
+  ├── 定义 IDesignPattern 接口
+  ├── 定义 ServiceLoaderUtils
+  └── 定义 ActivityLaunchUtils
+
+common
+  └── 依赖 router
+
+designPattern
+  └── 依赖 router
+
+app
+  ├── 依赖 common
+  ├── 依赖 designPattern
+  └── 依赖 router
+
+这样，router 模块只定义接口和工具类，common 和 designPattern 分别实现自己的逻辑，不再互相依赖。
