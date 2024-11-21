@@ -1,0 +1,53 @@
+1. 当前依赖关系的结构
+
+1.项目中包含以下模块和依赖：
+
+    common 库：
+        定义了 IDesignPattern 接口。
+        包含 ServiceLoaderUtils 工具类，用于加载实现。
+        提供对 designPattern 实现的调用逻辑：goDesignPatternPage()。
+
+    designPattern 库：
+        实现了 IDesignPattern 接口，提供 IDesignPatternImpl 实现。
+        使用 @AutoService 注册实现。
+        依赖 common 库（因为调用 ActivityLaunchUtils 等工具方法需要 common 的代码）。
+
+    app 模块：
+        依赖 common 和 designPattern 两个库，用于整合功能。
+
+依赖图
+common
+  └── designPattern  (设计模式实现依赖于 common)
+designPattern
+  └── common (需要使用 common 中的接口和工具)
+app
+  └── common + designPattern
+
+2. 循环依赖问题的分析
+什么是循环依赖？
+
+循环依赖指的是模块之间相互依赖，导致无法明确模块加载的顺序，进而在编译、运行或构建时引发问题。
+
+在你的项目中，common 和 designPattern 存在一种隐式的循环依赖：
+
+    common 依赖 designPattern 的实现：
+        ServiceLoaderUtils 在 common 中加载 designPattern 的 IDesignPatternImpl。
+        这意味着 common 的功能间接依赖了 designPattern。
+
+    designPattern 直接依赖 common：
+        designPattern 中的 IDesignPatternImpl 需要调用 common 中的工具类（如 ActivityLaunchUtils）。
+
+因此，common 和 designPattern 之间形成了循环依赖。
+
+循环依赖可能导致的问题
+
+    运行时问题：
+        如果 ServiceLoader 在运行时无法找到 IDesignPatternImpl，可能会返回 null。
+        例如，META-INF/services 文件未正确加载或未被包含在 common 的依赖中。
+
+    构建问题：
+        编译器可能无法确定 common 和 designPattern 的构建顺序。
+        特别是在 gradle 配置中，如果依赖关系处理不当，会出现 ModuleNotFound 或编译失败。
+
+    模块难以维护：
+        新增或修改模块功能时，需要同时调整两个模块的依赖，增加了开发复杂度。

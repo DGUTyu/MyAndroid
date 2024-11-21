@@ -31,7 +31,8 @@ ext {
             //"cardview"  : 'com.android.support:cardview-v7:28.0.0',
             "picasso"                      : 'com.squareup.picasso:picasso:2.5.2',
             "gson"                         : "com.google.code.gson:gson:2.8.5",
-            "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+            "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50',
+            "googleAutoServiceDependency"  : 'com.google.auto.service:auto-service:1.0-rc7'
     ]
 
     //依赖 配置 定义一个数组

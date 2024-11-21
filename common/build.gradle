@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -44,4 +45,10 @@ dependencies {
     api rootProject.ext.dependencies["core-ktx"]
     api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     api rootProject.ext.dependencies["gson"]
+
+    api rootProject.ext.dependencies["googleAutoServiceDependency"]
+    // Java 项目
+    annotationProcessor rootProject.ext.dependencies["googleAutoServiceDependency"]
+    // Kotlin 项目
+    kapt rootProject.ext.dependencies["googleAutoServiceDependency"]
 }
