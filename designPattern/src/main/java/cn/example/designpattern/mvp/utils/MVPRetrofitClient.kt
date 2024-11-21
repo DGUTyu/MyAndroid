@@ -6,7 +6,9 @@ import cn.example.router.base.BaseApplication
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -46,6 +48,25 @@ object MVPRetrofitClient {
             SharedPrefsCookiePersistor(BaseApplication.getContext())
     )
 
+    // 创建自定义拦截器（修改请求头）
+    private val headerInterceptor = Interceptor { chain ->
+        // 获取原始请求
+        val originalRequest: Request = chain.request()
+
+        // 在原始请求基础上修改头部
+        val newRequest = originalRequest.newBuilder()
+                // 添加或修改 User-Agent
+                .header("User-Agent", "YourAppName/1.0")
+                // 示例：添加 Authorization 请求头
+                .header("Authorization", "Bearer YOUR_ACCESS_TOKEN")
+                // 设置请求体的类型为 JSON
+                .header("Content-Type", "application/json")
+                .build()
+
+        // 继续执行请求
+        chain.proceed(newRequest)
+    }
+
     // 创建 OkHttpClient，并在 Debug 模式下添加日志拦截器
     private val okHttpClient = OkHttpClient.Builder().apply {
         // 设置超时时间
@@ -54,6 +75,9 @@ object MVPRetrofitClient {
 
         // 设置 CookieJar
         cookieJar(cookieJar)
+
+        // 添加自定义的请求头拦截器，如：修改请求头的拦截器
+        addInterceptor(headerInterceptor)
 
         // 仅在 Debug 模式下添加日志拦截器
         if (BuildConfig.DEBUG) {
