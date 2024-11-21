@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import cn.example.common.CommonMainActivity
 import cn.example.designpattern.DesignPatternMainActivity
+import cn.example.designpattern.mvp.view.MVPMainActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.tvToDesignPattern).setOnClickListener {
-            startActivity(Intent(this, DesignPatternMainActivity::class.java))
+            startActivity(Intent(this, MVPMainActivity::class.java))
         }
     }
 }

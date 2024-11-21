@@ -1,0 +1,15 @@
+MVP模式：RxJava + Retrofit2 示例
+
+以下是一个简单的MVP示例，演示如何使用RxJava和Retrofit2实现网络请求，展示从API获取的数据。
+
+项目结构
+- model/
+  - MVPApiService.kt
+  - MVPDataModel.kt
+- presenter/
+  - MVPMainPresenter.kt
+- view/
+  - MVPMainView.kt
+  - MVPMainActivity.kt
+- utils/
+  - MVPRetrofitClient.kt
