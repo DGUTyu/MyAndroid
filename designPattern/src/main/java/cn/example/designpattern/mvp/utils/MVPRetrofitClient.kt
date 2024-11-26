@@ -1,6 +1,7 @@
 package cn.example.designpattern.mvp.utils
 
 import cn.example.designpattern.BuildConfig
+import cn.example.designpattern.mvp.model.JsonApiService
 import cn.example.designpattern.mvp.model.MVPApiService
 import cn.example.router.base.BaseApplication
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -96,4 +97,14 @@ object MVPRetrofitClient {
                 .create(MVPApiService::class.java)
     }
 
+    val jsonApiService: JsonApiService by lazy {
+        Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                // 使用自定义的 OkHttpClient
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(JsonApiService::class.java)
+    }
 }

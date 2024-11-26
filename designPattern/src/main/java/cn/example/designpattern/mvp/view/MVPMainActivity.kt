@@ -10,9 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.example.designpattern.R
 import cn.example.designpattern.mvp.adapter.PostsAdapter
+import cn.example.designpattern.mvp.http.HttpUtils
 import cn.example.designpattern.mvp.http.RequestParam
+import cn.example.designpattern.mvp.http.ResponseObserver
 import cn.example.designpattern.mvp.model.MVPDataModel
 import cn.example.designpattern.mvp.presenter.MVPMainPresenter
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 
 
 class MVPMainActivity : AppCompatActivity(), MVPMainView {
@@ -43,13 +47,47 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
         }
 
         findViewById<Button>(R.id.mvpBtnID).setOnClickListener {
-            presenter.fetchPostById(1) // 获取 ID 为 1 的文章
+            //presenter.fetchPostById(1) // 获取 ID 为 1 的文章
+            sendPostRequest2()
         }
 
         findViewById<Button>(R.id.mvpBtnUser).setOnClickListener {
-            presenter.fetchPostsByUser(1) // 获取用户 ID 为 1 的文章
-            //presenter.sendPostRequest(getParam())
+            //presenter.fetchPostsByUser(1) // 获取用户 ID 为 1 的文章
+            presenter.sendPostRequest(getParam())
         }
+    }
+
+    private fun sendPostRequest2() {
+        // 假设我们要请求的 URL 和参数
+        val url = "https://jsonplaceholder.typicode.com/posts"
+        val params = RequestParam().apply {
+            put("title", "foo")
+            put("body", "bar")
+            put("userId", 1)
+        }
+        showLoading()
+        // 调用 NetworkUtils 进行网络请求
+        HttpUtils.postRequest(url, params, object : ResponseObserver<MVPDataModel>() {
+            override fun parseResponse(json: JsonObject): MVPDataModel {
+                // 解析 JSON 数据为 MVPDataModel 对象
+                return Gson().fromJson(json, MVPDataModel::class.java)
+            }
+
+            override fun onSuccess(data: MVPDataModel) {
+                // 成功回调
+                // 处理成功的返回数据
+                hideLoading()
+                Log.d("MyActivity", "Request succeeded with data: $data")
+                onGetSinglePostSuccess(data)
+            }
+
+            override fun onError(errorMessage: String) {
+                // 错误回调
+                // 处理错误信息
+                hideLoading()
+                Log.e("MyActivity", "Request failed with error: $errorMessage")
+            }
+        })
     }
 
     private fun getParam(): RequestParam {
