@@ -52,8 +52,7 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
 
         findViewById<Button>(R.id.mvpBtnUser).setOnClickListener {
             //presenter.fetchPostsByUser(1) // 获取用户 ID 为 1 的文章
-            //presenter.sendPostRequest(getParam())
-            sendPostRequest3()
+            presenter.sendPostRequest(getParam())
         }
     }
 
@@ -67,41 +66,13 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
         }
         showLoading()
         // 调用 NetworkUtils 进行网络请求
-        HttpUtils.postRequest(url, params, object : ResponseObserver<MVPDataModel>() {
+        HttpUtils.post(url, params, object : ResponseObserver<MVPDataModel>() {
             override fun onSuccess(data: MVPDataModel) {
                 // 成功回调
                 // 处理成功的返回数据
                 hideLoading()
                 Log.d("MyActivity", "Request succeeded with data: $data")
                 onGetSinglePostSuccess(data)
-            }
-
-            override fun onFail(errorMessage: String?) {
-                hideLoading()
-                Log.e("MyActivity", "Request failed with error: $errorMessage")
-            }
-        })
-    }
-
-    private fun sendPostRequest3() {
-        // 假设我们要请求的 URL 和参数
-        val url = "https://jsonplaceholder.typicode.com/posts"
-        val params = RequestParam().apply {
-            put("title", "foo")
-            put("body", "bar")
-            put("userId", 1)
-        }
-        showLoading()
-        // 调用 NetworkUtils 进行网络请求
-        HttpUtils.postRequest(url, params, object : ResponseObserver<PostByIdResponseBean>() {
-            override fun onSuccess(data: PostByIdResponseBean) {
-                // 成功回调
-                // 处理成功的返回数据
-                hideLoading()
-                Log.d("MyActivity", "Request succeeded with data: $data")
-                var jsonObject = data.jsonObject
-                var mvpDataModel = MVPDataModel(jsonObject.userId, jsonObject.title, jsonObject.body)
-                onGetSinglePostSuccess(mvpDataModel)
             }
 
             override fun onFail(errorMessage: String?) {
