@@ -62,6 +62,7 @@ object MVPRetrofitClient {
                 .header("Authorization", "Bearer YOUR_ACCESS_TOKEN")
                 // 设置请求体的类型为 JSON
                 .header("Content-Type", "application/json")
+                .header("vc-token", "MainApplication.getCookie()")
                 .build()
 
         // 继续执行请求

@@ -14,9 +14,8 @@ import cn.example.designpattern.mvp.http.HttpUtils
 import cn.example.designpattern.mvp.http.RequestParam
 import cn.example.designpattern.mvp.http.ResponseObserver
 import cn.example.designpattern.mvp.model.MVPDataModel
+import cn.example.designpattern.mvp.model.PostByIdResponseBean
 import cn.example.designpattern.mvp.presenter.MVPMainPresenter
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 
 
 class MVPMainActivity : AppCompatActivity(), MVPMainView {
@@ -53,7 +52,8 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
 
         findViewById<Button>(R.id.mvpBtnUser).setOnClickListener {
             //presenter.fetchPostsByUser(1) // 获取用户 ID 为 1 的文章
-            presenter.sendPostRequest(getParam())
+            //presenter.sendPostRequest(getParam())
+            sendPostRequest3()
         }
     }
 
@@ -68,11 +68,6 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
         showLoading()
         // 调用 NetworkUtils 进行网络请求
         HttpUtils.postRequest(url, params, object : ResponseObserver<MVPDataModel>() {
-            override fun parseResponse(json: JsonObject): MVPDataModel {
-                // 解析 JSON 数据为 MVPDataModel 对象
-                return Gson().fromJson(json, MVPDataModel::class.java)
-            }
-
             override fun onSuccess(data: MVPDataModel) {
                 // 成功回调
                 // 处理成功的返回数据
@@ -81,9 +76,35 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
                 onGetSinglePostSuccess(data)
             }
 
-            override fun onError(errorMessage: String) {
-                // 错误回调
-                // 处理错误信息
+            override fun onFail(errorMessage: String?) {
+                hideLoading()
+                Log.e("MyActivity", "Request failed with error: $errorMessage")
+            }
+        })
+    }
+
+    private fun sendPostRequest3() {
+        // 假设我们要请求的 URL 和参数
+        val url = "https://jsonplaceholder.typicode.com/posts"
+        val params = RequestParam().apply {
+            put("title", "foo")
+            put("body", "bar")
+            put("userId", 1)
+        }
+        showLoading()
+        // 调用 NetworkUtils 进行网络请求
+        HttpUtils.postRequest(url, params, object : ResponseObserver<PostByIdResponseBean>() {
+            override fun onSuccess(data: PostByIdResponseBean) {
+                // 成功回调
+                // 处理成功的返回数据
+                hideLoading()
+                Log.d("MyActivity", "Request succeeded with data: $data")
+                var jsonObject = data.jsonObject
+                var mvpDataModel = MVPDataModel(jsonObject.userId, jsonObject.title, jsonObject.body)
+                onGetSinglePostSuccess(mvpDataModel)
+            }
+
+            override fun onFail(errorMessage: String?) {
                 hideLoading()
                 Log.e("MyActivity", "Request failed with error: $errorMessage")
             }
