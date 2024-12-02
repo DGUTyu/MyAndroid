@@ -3,9 +3,13 @@ package cn.example.designpattern.mvp.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.example.designpattern.R
@@ -14,8 +18,9 @@ import cn.example.designpattern.mvp.http.HttpUtils
 import cn.example.designpattern.mvp.http.RequestParam
 import cn.example.designpattern.mvp.http.ResponseObserver
 import cn.example.designpattern.mvp.model.MVPDataModel
-import cn.example.designpattern.mvp.model.PostByIdResponseBean
 import cn.example.designpattern.mvp.presenter.MVPMainPresenter
+import cn.example.designpattern.mvvm.model.MVVMViewModel
+import cn.example.designpattern.mvvm.model.MVVMViewModelNormal
 
 
 class MVPMainActivity : AppCompatActivity(), MVPMainView {
@@ -24,11 +29,40 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostsAdapter
 
+    private lateinit var viewModel: MVVMViewModel
+    //private lateinit var viewModel: MVVMViewModelNormal
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mvp_activity_main)
         initView()
         initListener()
+        mvvmDemo()
+    }
+
+    private fun mvvmDemo() {
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(this).get(MVVMViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(MVVMViewModelNormal::class.java)
+
+        // Observe LiveData
+        viewModel.data.observe(this, Observer { data ->
+            // Update UI with the data
+            data?.let { onGetSinglePostSuccess(it) }
+        })
+
+        viewModel.loading.observe(this, Observer { isLoading ->
+            // Show/hide loading indicator
+            findViewById<ProgressBar>(R.id.progressBar).visibility = if (isLoading) View.VISIBLE else View.GONE
+        })
+
+        viewModel.errorMessage.observe(this, Observer { message ->
+            // Show error message
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        })
+
+        // Fetch data (example: postId = 2)
+        viewModel.fetchPostData(2)
     }
 
     private fun initView() {
@@ -65,7 +99,7 @@ class MVPMainActivity : AppCompatActivity(), MVPMainView {
             put("userId", 1)
         }
         showLoading()
-        // 调用 NetworkUtils 进行网络请求
+        // 调用 HttpUtils 进行网络请求
         HttpUtils.post(url, params, object : ResponseObserver<MVPDataModel>() {
             override fun onSuccess(data: MVPDataModel) {
                 // 成功回调
