@@ -35,18 +35,6 @@ android {
 
 dependencies {
     implementation project(path: ':base')
-    // Java 项目
     annotationProcessor rootProject.ext.dependencies["googleAutoServiceDependency"]
-    // Kotlin 项目
     kapt rootProject.ext.dependencies["googleAutoServiceDependency"]
-
-    implementation rootProject.ext.dependencies["retrofit2"]
-    implementation rootProject.ext.dependencies["retrofit2:converter-gson"]
-    implementation rootProject.ext.dependencies["retrofit2:adapter-rxjava"]
-    implementation rootProject.ext.dependencies["rxjava"]
-    implementation rootProject.ext.dependencies["rxandroid"]
-    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    //implementation rootProject.ext.dependencies["okhttp3"]
-    implementation rootProject.ext.dependencies["okhttp3:logging-interceptor"]
-    implementation rootProject.ext.dependencies["PersistentCookieJar"]
 }
