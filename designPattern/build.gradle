@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':router')
+    implementation project(path: ':base')
     // Java 项目
     annotationProcessor rootProject.ext.dependencies["googleAutoServiceDependency"]
     // Kotlin 项目

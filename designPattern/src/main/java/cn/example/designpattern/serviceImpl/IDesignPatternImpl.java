@@ -3,8 +3,8 @@ package cn.example.designpattern.serviceImpl;
 
 import com.google.auto.service.AutoService;
 
-import cn.example.router.service.IDesignPattern;
-import cn.example.router.utils.ActivityLaunchUtils;
+import cn.example.base.service.IDesignPattern;
+import cn.example.base.utils.ActivityLaunchUtils;
 import cn.example.designpattern.DesignPatternMainActivity;
 
 /**

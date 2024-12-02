@@ -1,8 +1,8 @@
-package cn.example.router.manager
+package cn.example.base.manager
 
-import cn.example.router.service.ICommon
-import cn.example.router.service.IDesignPattern
-import cn.example.router.utils.ServiceLoaderUtils
+import cn.example.base.service.ICommon
+import cn.example.base.service.IDesignPattern
+import cn.example.base.utils.ServiceLoaderUtils
 
 class RouterManager {
 

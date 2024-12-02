@@ -1,4 +1,4 @@
-package cn.example.router.base
+package cn.example.base.base
 
 import android.app.Activity
 import android.app.Application

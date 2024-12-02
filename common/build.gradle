@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':router')
+    implementation project(path: ':base')
 
     api rootProject.ext.dependencies["cardview"]
     api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]

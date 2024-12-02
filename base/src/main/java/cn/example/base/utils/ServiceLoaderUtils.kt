@@ -1,7 +1,7 @@
-package cn.example.router.utils
+package cn.example.base.utils
 
 import android.util.Log
-import cn.example.router.BuildConfig
+import cn.example.base.BuildConfig
 
 /**
  *用 ServiceLoader 加载服务

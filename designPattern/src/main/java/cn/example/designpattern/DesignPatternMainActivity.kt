@@ -3,7 +3,7 @@ package cn.example.designpattern
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import cn.example.router.manager.RouterManager
+import cn.example.base.manager.RouterManager
 
 class DesignPatternMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

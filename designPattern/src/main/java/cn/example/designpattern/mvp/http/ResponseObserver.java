@@ -13,7 +13,7 @@ import com.google.gson.JsonParser;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import cn.example.router.utils.StringUtil;
+import cn.example.base.utils.StringUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Response;

@@ -3,7 +3,7 @@ package cn.example.designpattern.mvp.utils
 import cn.example.designpattern.BuildConfig
 import cn.example.designpattern.mvp.model.JsonApiService
 import cn.example.designpattern.mvp.model.MVPApiService
-import cn.example.router.base.BaseApplication
+import cn.example.base.base.BaseApplication
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor

@@ -1,8 +1,8 @@
-package cn.example.router.utils
+package cn.example.base.utils
 
 import android.app.Activity
 import android.content.Intent
-import cn.example.router.base.BaseApplication
+import cn.example.base.base.BaseApplication
 
 object ActivityLaunchUtils {
 

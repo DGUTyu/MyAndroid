@@ -1,4 +1,4 @@
-include ':router'
+include ':base'
 include ':designPattern'
 include ':common'
 include ':app'

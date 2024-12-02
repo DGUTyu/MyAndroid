@@ -2,7 +2,7 @@ package cn.example.designpattern.mvp.utils
 
 import android.util.Log
 import cn.example.designpattern.mvp.http.RequestParam
-import cn.example.router.utils.StringUtil
+import cn.example.base.utils.StringUtil
 import com.google.gson.Gson
 
 /**

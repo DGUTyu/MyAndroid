@@ -1,4 +1,4 @@
-package cn.example.router.utils;
+package cn.example.base.utils;
 
 public class StringUtil {
     public static boolean isEmptyOrNull(String str) {
