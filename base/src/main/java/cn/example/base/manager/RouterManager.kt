@@ -1,8 +1,6 @@
 package cn.example.base.manager
 
-import cn.example.base.service.ICommon
-import cn.example.base.service.IDesignPattern
-import cn.example.base.service.IRetrofit
+import cn.example.base.service.*
 import cn.example.base.utils.ServiceLoaderUtils
 
 class RouterManager {
@@ -48,5 +46,14 @@ class RouterManager {
 
     fun goRetrofitPage() {
         getService<IRetrofit>()?.goRetrofitPage()
+    }
+
+    fun goRxjavaPage() {
+        getService<IRxjava>()?.goRxjavaPage()
+    }
+
+
+    fun goOkhttpPage() {
+        getService<IOkhttp>()?.goOkhttpPage()
     }
 }

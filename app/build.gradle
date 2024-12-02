@@ -127,4 +127,6 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':designPattern')
     implementation project(path: ':retrofit')
+    implementation project(path: ':rxjava')
+    implementation project(path: ':okhttp')
 }
