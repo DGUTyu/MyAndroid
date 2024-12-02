@@ -1,3 +1,4 @@
+include ':retrofit'
 include ':base'
 include ':designPattern'
 include ':common'

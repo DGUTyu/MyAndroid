@@ -126,4 +126,5 @@ dependencies {
     implementation project(path: ':base')
     implementation project(path: ':common')
     implementation project(path: ':designPattern')
+    implementation project(path: ':retrofit')
 }

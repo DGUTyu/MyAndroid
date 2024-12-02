@@ -2,6 +2,7 @@ package cn.example.base.manager
 
 import cn.example.base.service.ICommon
 import cn.example.base.service.IDesignPattern
+import cn.example.base.service.IRetrofit
 import cn.example.base.utils.ServiceLoaderUtils
 
 class RouterManager {
@@ -42,5 +43,18 @@ class RouterManager {
 
     fun goCommonPage() {
         getCommonService()?.goCommonPage()
+    }
+
+    private var iRetrofit: IRetrofit? = null
+
+    private fun getRetrofitService(): IRetrofit? {
+        if (iRetrofit == null) {
+            iRetrofit = ServiceLoaderUtils.load(IRetrofit::class.java)
+        }
+        return iRetrofit
+    }
+
+    fun goRetrofitPage() {
+        getRetrofitService()?.goRetrofitPage()
     }
 }
