@@ -129,4 +129,5 @@ dependencies {
     implementation project(path: ':retrofit')
     implementation project(path: ':rxjava')
     implementation project(path: ':okhttp')
+    implementation project(path: ':encrypte')
 }

@@ -56,4 +56,8 @@ class RouterManager {
     fun goOkhttpPage() {
         getService<IOkhttp>()?.goOkhttpPage()
     }
+
+    fun goEncryptePage() {
+        getService<IEncrypte>()?.goEncryptePage()
+    }
 }

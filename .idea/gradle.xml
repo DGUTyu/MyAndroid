@@ -13,6 +13,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/designPattern" />
+            <option value="$PROJECT_DIR$/encrypte" />
+            <option value="$PROJECT_DIR$/okhttp" />
+            <option value="$PROJECT_DIR$/retrofit" />
+            <option value="$PROJECT_DIR$/rxjava" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

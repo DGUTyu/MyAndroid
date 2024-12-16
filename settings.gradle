@@ -1,3 +1,4 @@
+include ':encrypte'
 include ':okhttp'
 include ':rxjava'
 include ':retrofit'
