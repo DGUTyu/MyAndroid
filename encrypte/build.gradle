@@ -37,4 +37,5 @@ dependencies {
     implementation project(path: ':base')
     annotationProcessor rootProject.ext.dependencies["googleAutoServiceDependency"]
     kapt rootProject.ext.dependencies["googleAutoServiceDependency"]
+    implementation rootProject.ext.dependencies["bouncycastle"]
 }

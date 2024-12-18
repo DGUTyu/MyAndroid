@@ -41,6 +41,7 @@ ext {
             "okhttp3"                      : 'com.squareup.okhttp3:okhttp:3.14.9',
             "okhttp3:logging-interceptor"  : 'com.squareup.okhttp3:logging-interceptor:3.14.9',
             "PersistentCookieJar"          : 'com.github.franmontiel:PersistentCookieJar:v1.0.1',
+            "bouncycastle"                 : 'org.bouncycastle:bcprov-jdk15to18:1.68',
     ]
 
     //依赖 配置 定义一个数组
