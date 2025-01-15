@@ -1,7 +1,6 @@
 package cn.example.encrypte.sm4
 
 
-import cn.example.encrypte.utils.DataFormatUtils
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.SecureRandom
 import java.security.Security
@@ -101,7 +100,7 @@ object SM4EncryptionUtils {
                 cipher.init(Cipher.ENCRYPT_MODE, getKey(key, isKeyHex))
             }
             4 -> {
-                currentIV = DataFormatUtils.hexStrToByteArray(FIXED_IV_HEX)
+                currentIV = hexStrToByteArray(FIXED_IV_HEX)
                 val ivSpec = IvParameterSpec(currentIV)
                 cipher.init(Cipher.ENCRYPT_MODE, getKey(key, isKeyHex), ivSpec)
             }
