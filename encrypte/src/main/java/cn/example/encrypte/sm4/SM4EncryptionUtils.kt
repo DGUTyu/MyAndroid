@@ -1,6 +1,7 @@
 package cn.example.encrypte.sm4
 
 
+import cn.example.encrypte.utils.DataFormatUtils
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.SecureRandom
 import java.security.Security
@@ -24,6 +25,10 @@ object SM4EncryptionUtils {
 
     // 存储IV的成员变量
     private var currentIV: ByteArray? = null
+
+    // IV的16进制字符串常量
+    private val FIXED_IV_HEX = "824FA67ACFBF3705BE55AE8EC3E44ACE"
+    // sm4密钥示例：FE06C130A90517A5C3E517B83F290BD1
 
     // 初始化BouncyCastle提供器，确保SM4算法支持
     init {
@@ -60,6 +65,10 @@ object SM4EncryptionUtils {
                 "SM4/ECB/NoPadding"
             }
 
+            4 -> {
+                "SM4/CBC/PKCS7Padding"
+            }
+
             else -> throw IllegalArgumentException("不支持的加密类型")
         }
 
@@ -91,6 +100,11 @@ object SM4EncryptionUtils {
             3, 1 -> { // ECB模式不需要IV，且1与3模式只需要设置密钥
                 cipher.init(Cipher.ENCRYPT_MODE, getKey(key, isKeyHex))
             }
+            4 -> {
+                currentIV = DataFormatUtils.hexStrToByteArray(FIXED_IV_HEX)
+                val ivSpec = IvParameterSpec(currentIV)
+                cipher.init(Cipher.ENCRYPT_MODE, getKey(key, isKeyHex), ivSpec)
+            }
             else -> throw IllegalArgumentException("不支持的加密类型")
         }
 
@@ -112,6 +126,10 @@ object SM4EncryptionUtils {
             }
             3, 1 -> { // ECB模式不需要IV，且1与3模式只需要设置密钥
                 cipher.init(Cipher.DECRYPT_MODE, getKey(key, isKeyHex))
+            }
+            4 -> {
+                val ivSpec = IvParameterSpec(currentIV)
+                cipher.init(Cipher.DECRYPT_MODE, getKey(key, isKeyHex), ivSpec)
             }
             else -> throw IllegalArgumentException("不支持的加密类型")
         }
