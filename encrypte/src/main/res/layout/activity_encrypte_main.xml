@@ -6,48 +6,68 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:text="这是Encrypte" />
-
-    <EditText
-        android:id="@+id/et_plainText"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter plain text" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_key"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter 16-byte key" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_encrypt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Encrypt" />
 
-    <TextView
-        android:id="@+id/tv_encryptedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Encrypted Text"
-        android:paddingTop="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="这是Encrypte" />
 
-    <Button
-        android:id="@+id/btn_decrypt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Decrypt" />
+            <EditText
+                android:id="@+id/et_plainText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter plain text" />
 
-    <TextView
-        android:id="@+id/tv_decryptedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Decrypted Text"
-        android:paddingTop="8dp" />
+            <EditText
+                android:id="@+id/et_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter 16-byte key" />
+
+            <EditText
+                android:id="@+id/et_key2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter 16-byte key2" />
+
+            <Button
+                android:id="@+id/btn_encrypt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Encrypt" />
+
+            <TextView
+                android:id="@+id/tv_encryptedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Encrypted Text"
+                android:paddingTop="8dp" />
+
+            <Button
+                android:id="@+id/btn_decrypt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Decrypt" />
+
+            <TextView
+                android:id="@+id/tv_decryptedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Decrypted Text"
+                android:paddingTop="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
