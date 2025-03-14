@@ -1,3 +1,4 @@
+include ':task'
 include ':encrypte'
 include ':okhttp'
 include ':rxjava'

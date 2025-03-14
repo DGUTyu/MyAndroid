@@ -130,4 +130,5 @@ dependencies {
     implementation project(path: ':rxjava')
     implementation project(path: ':okhttp')
     implementation project(path: ':encrypte')
+    implementation project(path: ':task')
 }
