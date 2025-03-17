@@ -49,4 +49,5 @@ dependencies {
     //api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["okhttp3:logging-interceptor"]
     api rootProject.ext.dependencies["PersistentCookieJar"]
+    api rootProject.ext.dependencies["aspectj"]
 }
