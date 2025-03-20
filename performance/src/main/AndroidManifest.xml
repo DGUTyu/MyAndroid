@@ -5,6 +5,7 @@
     <application>
         <activity android:name=".activity.PerformanceMainActivity"></activity>
         <activity android:name=".activity.MemoryShakeActivity" />
+        <activity android:name=".activity.MemoryLeakActivity" />
     </application>
 
 </manifest>
