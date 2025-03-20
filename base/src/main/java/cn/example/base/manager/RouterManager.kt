@@ -60,4 +60,8 @@ class RouterManager {
     fun goEncryptePage() {
         getService<IEncrypte>()?.goEncryptePage()
     }
+
+    fun goPerformancePage() {
+        getService<IPerformance>()?.goPerformancePage()
+    }
 }

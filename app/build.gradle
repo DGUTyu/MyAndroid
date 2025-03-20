@@ -146,5 +146,6 @@ dependencies {
     implementation project(path: ':okhttp')
     implementation project(path: ':encrypte')
     implementation project(path: ':task')
-//    api rootProject.ext.dependencies["aspectj"]
+    //api rootProject.ext.dependencies["aspectj"]
+    implementation project(path: ':performance')
 }

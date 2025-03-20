@@ -1,3 +1,4 @@
+include ':performance'
 include ':task'
 include ':encrypte'
 include ':okhttp'
