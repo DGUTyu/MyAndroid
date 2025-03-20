@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".activity.PerformanceMainActivity"></activity>
+        <activity android:name=".activity.MemoryShakeActivity" />
     </application>
 
 </manifest>
