@@ -1,0 +1,4 @@
+<resources>
+    <!--    Android 资源系统会自动为 id 分配唯一的整数值，这些值在编译时生成，并存储在 R.java 里-->
+    <item name="view_pre_draw_hook" type="id" />
+</resources>

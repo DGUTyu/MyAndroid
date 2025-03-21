@@ -43,6 +43,8 @@ ext {
             "PersistentCookieJar"          : 'com.github.franmontiel:PersistentCookieJar:v1.0.1',
             "bouncycastle"                 : 'org.bouncycastle:bcprov-jdk15to18:1.68',
             "aspectj"                      : 'org.aspectj:aspectjrt:1.9.5',
+            "epic"                         : 'com.github.tiann:epic:0.11.2',
+            "epicAAR"                      : 'com.github.tiann:epic:0.11.2@aar',
     ]
 
     //依赖 配置 定义一个数组

@@ -50,4 +50,7 @@ dependencies {
     api rootProject.ext.dependencies["okhttp3:logging-interceptor"]
     api rootProject.ext.dependencies["PersistentCookieJar"]
     api rootProject.ext.dependencies["aspectj"]
+    api rootProject.ext.dependencies["epic"]
+    //如果报错缺少DexposedBridge，可以降低gradle版本为gradle-5.4.1-all.zip，或添加下面这行
+    api rootProject.ext.dependencies["epicAAR"]
 }

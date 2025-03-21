@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import cn.example.task.launchstarter.TaskDispatcher
 import cn.example.base.base.BaseApplication
+import cn.example.myandroid.tasks.HookInitTask
 
 
 class AppApplication : BaseApplication() {
@@ -13,7 +14,8 @@ class AppApplication : BaseApplication() {
 
         TaskDispatcher.init(this)
         val dispatcher = TaskDispatcher.createInstance()
-        dispatcher.start()
+        dispatcher.addTask(HookInitTask())
+                .start()
         dispatcher.await()
     }
 }
