@@ -36,10 +36,16 @@ public class ImageHook extends XC_MethodHook {
                 int width = view.getWidth();
                 int height = view.getHeight();
                 if (width > 0 && height > 0) {
-                    // 图标宽高都大于view带下的2倍以上，则警告
+                    // 图标宽高都大于view带下的2倍以上，则警告，同时进行缩放
                     if (bitmap.getWidth() >= (width << 1)
                             && bitmap.getHeight() >= (height << 1)) {
                         warn(bitmap.getWidth(), bitmap.getHeight(), width, height, new RuntimeException("Bitmap size too large"));
+                        //filter = true 开启平滑插值算法（双线性过滤）
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+                        ((ImageView) view).setImageBitmap(scaledBitmap);
+                        Log.d("ImageHook", "Bitmap resized to fit ImageView: (" + width + "," + height + ")");
+                        Log.d("ImageHook", "Original Bitmap size: " + bitmap.getByteCount() + " bytes");
+                        Log.d("ImageHook", "Resized Bitmap size: " + scaledBitmap.getByteCount() + " bytes");
                     }
                 } else {
                     if (view.getTag(R.id.view_pre_draw_hook) != null) {
@@ -61,6 +67,11 @@ public class ImageHook extends XC_MethodHook {
                                 if (bitmap.getWidth() >= (w << 1)
                                         && bitmap.getHeight() >= (h << 1)) {
                                     warn(bitmap.getWidth(), bitmap.getHeight(), w, h, stackTrace);
+                                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
+                                    ((ImageView) view).setImageBitmap(scaledBitmap);
+                                    Log.d("ImageHook", "Bitmap resized onPreDraw: (" + w + "," + h + ")");
+                                    Log.d("ImageHook", "Original Bitmap size: " + bitmap.getByteCount() + " bytes");
+                                    Log.d("ImageHook", "Resized Bitmap size: " + scaledBitmap.getByteCount() + " bytes");
                                 }
                                 view.getViewTreeObserver().removeOnPreDrawListener(this);
                                 // 释放标记。setTag(int key, Object tag) 允许 tag 为 null，表示删除该 key 关联的值，相当于完全移除标记
