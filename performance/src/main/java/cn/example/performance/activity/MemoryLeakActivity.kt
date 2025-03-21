@@ -14,8 +14,10 @@ class MemoryLeakActivity : AppCompatActivity(), CallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_performance_memoryleak)
         val imageView = findViewById<ImageView>(R.id.iv_memoryleak)
+        val imageViewOther = findViewById<ImageView>(R.id.iv_memoryleak_other)
         val bitmap = BitmapFactory.decodeResource(resources, R.mipmap.splash)
         imageView.setImageBitmap(bitmap)
+        imageViewOther.setImageBitmap(bitmap)
 
         CallBackManager.addCallBack(this)
     }

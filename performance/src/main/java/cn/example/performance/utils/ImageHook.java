@@ -16,14 +16,74 @@ import de.robv.android.xposed.XC_MethodHook;
  * 适用于 Xposed / Dexposed Hook 环境。
  */
 public class ImageHook extends XC_MethodHook {
+    // 定义一个常量来调整比例
+    private static final float RATIO = 1.5f;
 
     @Override
-    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-        super.afterHookedMethod(param);
-        // 实现我们的逻辑:获取 ImageView 实例，并检查其绑定的 Drawable
-        ImageView imageView = (ImageView) param.thisObject;
-        checkBitmap(imageView, ((ImageView) param.thisObject).getDrawable());
+    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+        super.beforeHookedMethod(param);
+        ImageView view = (ImageView) param.thisObject;
+        if (view.getTag(R.id.view_pre_draw_hook) != null) {
+            return;
+        }
+        // setTag 避免重复优化
+        view.setTag(R.id.view_pre_draw_hook, true);
+
+        Bitmap bitmap = (Bitmap) param.args[0];
+        if (bitmap == null) {
+            return;
+        }
+        // 1.监控 setImageBitmap，日志分析大图
+        final int bw = bitmap.getWidth();
+        final int bh = bitmap.getHeight();
+        //获取 ImageView 的 hashCode，作为日志标识
+        String viewIdentifier = "ImageView#" + view.hashCode();
+        if (bw > 1024 || bh > 1024) {
+            Log.w("ImageHook", "大图警告: " + viewIdentifier + " Bitmap(" + bw + ", " + bh + ") 可能导致内存占用过高");
+        }
+        // 2.拦截 setImageBitmap，自动缩放大图
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                int w = view.getWidth();
+                int h = view.getHeight();
+                if (w > 0 && h > 0) {
+                    // 在图片的宽高超过 ImageView 宽高的 1.5 倍时才进行优化操作
+                    if (bw >= (w * RATIO) && bh >= (h * RATIO)) {
+                        // 3.LruCache + ImageViewHook 进行图片缓存
+                        // 生成唯一的缓存 key，结合 bitmap.hashCode() 避免不同图片但相同尺寸被覆盖
+                        String cacheKey = bitmap.hashCode() + "_" + bw + "x" + bh;
+                        Bitmap cachedBitmap = ImageCache.getBitmap(cacheKey);
+
+                        if (cachedBitmap == null || cachedBitmap.isRecycled()) {
+                            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
+                            ImageCache.putBitmap(cacheKey, scaledBitmap);
+                            view.setImageBitmap(scaledBitmap);
+                            Log.d("ImageHook", "Bitmap real size: (" + bw + "," + bh + ")");
+                            Log.d("ImageHook", "Bitmap resized onPreDraw: (" + w + "," + h + ")");
+                            Log.d("ImageHook", "Original Bitmap size: " + bitmap.getByteCount() + " bytes");
+                            Log.d("ImageHook", "Resized Bitmap size: " + scaledBitmap.getByteCount() + " bytes");
+                        } else {
+                            view.setImageBitmap(cachedBitmap);
+                            Log.d("ImageHook", "Use cachedBitmap");
+                        }
+                    }
+                    view.getViewTreeObserver().removeOnPreDrawListener(this);
+                    view.setTag(R.id.view_pre_draw_hook, null);
+                }
+                return true;
+            }
+        });
+
     }
+
+//    @Override
+//    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//        super.afterHookedMethod(param);
+//        // 实现我们的逻辑:获取 ImageView 实例，并检查其绑定的 Drawable
+//        ImageView imageView = (ImageView) param.thisObject;
+//        checkBitmap(imageView, ((ImageView) param.thisObject).getDrawable());
+//    }
 
     /**
      * 检查 `Bitmap` 是否超过 `View` 期望尺寸的 2 倍
