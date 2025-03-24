@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -124,4 +125,18 @@ public class AspectUtils {
         // 继续执行方法
         return joinPoint.proceed();
     }
+
+    @Around("execution(* androidx.appcompat.app.AppCompatActivity.setContentView(..))")
+    public void getSetContentViewTime(ProceedingJoinPoint joinPoint) {
+        Signature signature = joinPoint.getSignature();
+        String name = signature.toShortString();
+        long time = System.currentTimeMillis();
+        try {
+            joinPoint.proceed(); // 执行方法
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        Log.d("ActivityAspect", name + " cost " + (System.currentTimeMillis() - time));
+    }
+
 }

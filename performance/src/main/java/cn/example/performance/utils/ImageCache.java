@@ -11,6 +11,7 @@ public class ImageCache {
     private static LruCache<String, Bitmap> imageCache;
 
     static {
+        //一般应用最大可用内存为256MB,可以在清单文件设置android:largeHeap="true"分配到 512MB 或更大
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         // 使用最大可用内存的1/10作为缓存
         final int cacheSize = maxMemory / 10;
