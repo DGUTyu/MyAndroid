@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--主题色-->
+    <color name="theme_color">#3E7AF6</color>
+    <!--主题色 20透明度-->
+    <color name="theme_color_light">#333E7AF6</color>
+    <!--颜色值-->
+    <color name="transparent">#00000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_fra_shadow">#f5f5f5</color>
+    <color name="color_969696">#969696</color>
+</resources>
