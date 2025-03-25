@@ -45,6 +45,8 @@ ext {
             "aspectj"                      : 'org.aspectj:aspectjrt:1.9.5',
             "epic"                         : 'com.github.tiann:epic:0.11.2',
             "epicAAR"                      : 'com.github.tiann:epic:0.11.2@aar',
+            "arouter"                      : 'com.alibaba:arouter-api:1.5.2',
+            "arouter-compiler"             : 'com.alibaba:arouter-compiler:1.5.2',
     ]
 
     //依赖 配置 定义一个数组
