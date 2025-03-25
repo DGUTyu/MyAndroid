@@ -34,6 +34,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
+        multiDexEnabled rootProject.android.multiDexEnabled
         // ImageViewPro默认颜色
         //buildConfigField("int", "THEME_COLOR", "R.color.theme_color")
         // All flavors must now belong to a named flavor dimension.

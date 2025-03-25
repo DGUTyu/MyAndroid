@@ -1,6 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 //引入自定义Gradle配置文件 双引号
-apply from: "config.gradle"
+//apply from: "config.gradle"
+//apply from: this.rootProject.file('config.gradle')
+apply from: file('config.gradle')
 
 buildscript {
     ext.gradle_version = "4.1.3"
