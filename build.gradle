@@ -10,6 +10,20 @@ buildscript {
         //jcenter()
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven {
+            url 'http://localhost:8081/repository/imooc-release/'
+            credentials {
+                username 'admin'
+                password 'luyao456'
+            }
+        }
+        maven {
+            url 'http://localhost:8081/repository/imooc-snapshots/'
+            credentials {
+                username 'admin'
+                password 'luyao456'
+            }
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
@@ -29,6 +43,20 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url rootProject.ext.maven["jitpack"] } //maven { url 'https://www.jitpack.io' }
+        maven {
+            url 'http://localhost:8081/repository/imooc-release/'
+            credentials {
+                username 'admin'
+                password 'luyao456'
+            }
+        }
+        maven {
+            url 'http://localhost:8081/repository/imooc-snapshots/'
+            credentials {
+                username 'admin'
+                password 'luyao456'
+            }
+        }
     }
 }
 
